@@ -1,0 +1,152 @@
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Pattern;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    Button btnone, btntwo, btnthree, btnfour, btnfive, btnsix, btnseven, btneight, btnnine, btnzero;
+    Button btnclear, btnequal, btndot;
+    Button btnplus, btnminus, btnmul, btndiv;
+    EditText txtresult;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btnone = (Button) findViewById(R.id.button1);
+        btnone.setOnClickListener(this);
+
+        btntwo = (Button) findViewById(R.id.button2);
+        btntwo.setOnClickListener(this);
+
+        btnthree = (Button) findViewById(R.id.button3);
+        btnthree.setOnClickListener(this);
+
+        btnfour = (Button) findViewById(R.id.button4);
+        btnfour.setOnClickListener(this);
+
+        btnfive = (Button) findViewById(R.id.button5);
+        btnfive.setOnClickListener(this);
+
+        btnsix = (Button) findViewById(R.id.button6);
+        btnsix.setOnClickListener(this);
+
+        btnseven = (Button) findViewById(R.id.button7);
+        btnseven.setOnClickListener(this);
+
+        btneight = (Button) findViewById(R.id.button8);
+        btneight.setOnClickListener(this);
+
+        btnnine = (Button) findViewById(R.id.button9);
+        btnnine.setOnClickListener(this);
+
+        btnzero = (Button) findViewById(R.id.button0);
+        btnzero.setOnClickListener(this);
+
+        btnplus = (Button) findViewById(R.id.buttonadd);
+        btnplus.setOnClickListener(this);
+
+        btnminus = (Button) findViewById(R.id.buttonminus);
+        btnminus.setOnClickListener(this);
+
+        btndiv = (Button) findViewById(R.id.buttondiv);
+        btndiv.setOnClickListener(this);
+
+        btnmul = (Button) findViewById(R.id.buttonmul);
+        btnmul.setOnClickListener(this);
+
+        btndot = (Button) findViewById(R.id.buttondot);
+        btndot.setOnClickListener(this);
+
+        btnequal = (Button) findViewById(R.id.buttonequ);
+        btnequal.setOnClickListener(this);
+
+        btnclear = (Button) findViewById(R.id.buttonclear);
+        btnclear.setOnClickListener(this);
+
+        txtresult = (EditText) findViewById(R.id.result);
+        txtresult.setText(" ");
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(btnclear))
+            txtresult.setText(" ");
+        if (v.equals(btnone))
+            txtresult.append("1");
+        if (v.equals(btntwo))
+            txtresult.append("2");
+        if (v.equals(btnthree))
+            txtresult.append("3");
+        if (v.equals(btnfour))
+            txtresult.append("4");
+        if (v.equals(btnfive))
+            txtresult.append("5");
+        if (v.equals(btnsix))
+            txtresult.append("6");
+        if (v.equals(btnseven))
+            txtresult.append("7");
+        if (v.equals(btneight))
+            txtresult.append("8");
+        if (v.equals(btnnine))
+            txtresult.append("9");
+        if (v.equals(btnzero))
+            txtresult.append("0");
+        if (v.equals(btnplus))
+            txtresult.append("+");
+        if (v.equals(btndot))
+            txtresult.append(".");
+        if (v.equals(btnminus))
+            txtresult.append("-");
+        if (v.equals(btnmul))
+            txtresult.append("*");
+        if (v.equals(btndiv))
+            txtresult.append("/");
+        if (v.equals(btnequal)) {
+            double Ans;
+            String data=txtresult.getText().toString();
+            if(data.contains("/"))
+                Ans=calculate("/",data);
+            else if(data.contains("*"))
+                Ans=calculate("*",data);
+            else if(data.contains("+"))
+                Ans=calculate("+",data);
+            else if(data.contains("-"))
+                Ans=calculate("-",data);
+            else 
+                Ans=Double.parseDouble(data);
+            txtresult.setText(String.valueOf(Ans));
+            }
+        }
+
+    private double calculate(String s, String data) {
+        double Ans=0,operand1,operand2;
+        String operands[]=data.split("[-+*/]");
+        if(operands.length==2)
+        {
+            operand1=Double.parseDouble(operands[0]);
+            operand2=Double.parseDouble(operands[1]);
+            switch(s)
+            {
+                case "/": Ans=operand1/operand2;
+                break;
+                case "*": Ans=operand1*operand2;
+                break;
+                case "-": Ans=operand1-operand2;
+                break;
+                case "+": Ans=operand1+operand2;
+            }
+        }
+        else {
+            Toast.makeText(getBaseContext(),"Invalid Input",Toast.LENGTH_LONG).show();
+        }
+        return Ans;
+    }
